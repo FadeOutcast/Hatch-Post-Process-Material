@@ -9,10 +9,11 @@ void UMaterialInitiatorSubsytem::OnWorldBeginPlay(UWorld& InWorld)
 {
 	Super::OnWorldBeginPlay(InWorld);
 	if (!GetWorld()) return;
+	return;
 	UE_LOG(LogTemp, Log, TEXT("WorldSubsystem is running!"));
 	TArray<AActor*> FoundActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AActor::StaticClass(), FoundActors);
-	UMaterialInterface* PrimaryMaterial = LoadObject<UMaterialInterface>(nullptr, TEXT("/Script/Engine.Material'/Game/Materials/PrimaryMaterial.PrimaryMaterial'"));
+	UMaterialInterface* PrimaryMaterial = LoadObject<UMaterialInterface>(nullptr, TEXT("/Script/Engine.Material'/Game/Materials/M_PrimaryColor.M_PrimaryColor'"));
 	UMaterialInterface* OutlineMaterial = LoadObject<UMaterialInterface>(nullptr, TEXT("/Script/Engine.Material'/Game/Materials/SecondaryOutlineMaterial.SecondaryOutlineMaterial'"));
 	
 	if (!IsValid(PrimaryMaterial) || !IsValid(OutlineMaterial)) {
@@ -29,7 +30,7 @@ void UMaterialInitiatorSubsytem::OnWorldBeginPlay(UWorld& InWorld)
 		for (UStaticMeshComponent* MeshComponent : FoundMeshComponents) {
 			if (!IsValid(MeshComponent)) continue;
 			MeshComponent->SetMaterial(0, PrimaryMaterial);
-			MeshComponent->SetOverlayMaterial(OutlineMaterial);
+			//MeshComponent->SetOverlayMaterial(OutlineMaterial);
 			
 		}
 
